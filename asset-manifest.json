@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/plant-id-portfolio/static/css/main.8a47efbd.css",
+    "main.js": "/plant-id-portfolio/static/js/main.0fe7c1db.js",
+    "index.html": "/plant-id-portfolio/index.html",
+    "main.8a47efbd.css.map": "/plant-id-portfolio/static/css/main.8a47efbd.css.map",
+    "main.0fe7c1db.js.map": "/plant-id-portfolio/static/js/main.0fe7c1db.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a47efbd.css",
+    "static/js/main.0fe7c1db.js"
+  ]
+}
