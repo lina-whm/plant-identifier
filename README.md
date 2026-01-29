@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# 🌿 Plant Identifier - Full-Stack React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![React](https://img.shields.io/badge/React-19.2-blue)](https://reactjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue)](https://typescriptlang.org)
+[![PWA](https://img.shields.io/badge/PWA-✅-yellow)](https://web.dev/progressive-web-apps/)
+[![Responsive](https://img.shields.io/badge/Responsive-✅-green)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 
-## Available Scripts
+Полнофункциональное приложение для распознавания растений с использованием искусственного интеллекта. Full-stack решение с разделением frontend и backend для безопасной работы с API.
 
-In the project directory, you can run:
+## Демо
 
-### `npm start`
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Посмотреть-brightgreen)](https://lina-whm.github.io/plant-id-portfolio)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Режимы работы:
+1. **Режим с API** (backend запущен) - реальное распознавание через Plant.id
+2. **Демо-режим** (backend не запущен) - тестовые данные для демонстрации
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+##  Особенности
 
-### `npm test`
+###  Основной функционал
+- **Распознавание растений** через Plant.id AI API
+- **Высокая точность** - до 98% для распространенных растений
+- **Drag & Drop** загрузка изображений
+- **Адаптивный дизайн** - работает на всех устройствах
+- **PWA поддержка** - установка на домашний экран
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+###  Безопасность
+- **Backend proxy** - API ключи никогда не попадают в клиентский код
+- **Environment variables** - конфиденциальные данные в `.env` файлах
+- **CORS защита** - только разрешенные источники
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+###  Технологии
+- **Frontend**: React 19 + TypeScript
+- **Backend**: Node.js + Express
+- **Стили**: CSS Grid/Flexbox + современные CSS функции
+- **API**: Plant.id v2 REST API
+- **PWA**: Service Workers + Web App Manifest
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📸 Скриншоты
 
-### `npm run eject`
+| Главный экран | Результаты распознавания | Мобильная версия |
+|--------------|-------------------------|------------------|
+| ![Main Screen](/src/screenshots/main.png) | ![Results](/src/screenshots/results.png) | ![Mobile](/src/screenshots/mobile.png) |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##  Быстрый старт
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Предварительные требования
+- Node.js 16+
+- npm или yarn
+- API ключ от [Plant.id](https://plant.id)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Установка и запуск
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+# 1. Клонировать репозиторий
+git clone https://github.com/lina-whm/plant-id-portfolio.git
+cd plant-id-portfolio
 
-## Learn More
+# 2. Установить зависимости
+npm run install:all
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# 3. Настроить environment variables
+# Создайте server/.env:
+echo "PLANT_ID_API_KEY=ваш_ключ_здесь" > server/.env
+echo "PORT=3001" >> server/.env
+echo "CORS_ORIGIN=http://localhost:3000" >> server/.env
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Создайте корневой .env:
+echo "REACT_APP_BACKEND_URL=http://localhost:3001" > .env
+
+# 4. Запустить в режиме разработки
+npm run dev
+# Или отдельно:
+# Терминал 1: npm run backend
+# Терминал 2: npm start

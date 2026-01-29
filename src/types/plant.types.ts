@@ -1,17 +1,17 @@
-export interface PlantIdentification {
-    id: string;
-    plant_name: string;
-    probability: number;
-    confirmed: boolean;
-    plant_details: {
-        common_names: string[] | null;
+export interface PlantDetails {
+    similar_images?: Array<{
+        id: string;
         url: string;
-        wiki_description: {
-            value: string;
-        } | null;
-    };
+    }>;
 }
 
-export interface PlantIdApiResponse {
-    suggestions: PlantIdentification[];
+export interface PlantIdentification {
+    id: string;
+    name: string;
+    plant_name?: string;
+    probability: number;
+    confirmed?: boolean;
+    details: PlantDetails;
 }
+
+export type PlantIdApiResponse = any;

@@ -25,7 +25,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "backend": "cd server && npm run dev",
+    "backend:start": "cd server && npm start",
+    "dev": "concurrently \"npm run start\" \"npm run backend\"",
+    "install:all": "npm install && cd server && npm install"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +50,19 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "gh-pages": "^6.3.0"
+  },
+  "description": "[![React](https://img.shields.io/badge/React-19.2-blue)](https://reactjs.org) [![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue)](https://typescriptlang.org) [![PWA](https://img.shields.io/badge/PWA-✅-yellow)](https://web.dev/progressive-web-apps/) [![Responsive](https://img.shields.io/badge/Responsive-✅-green)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lina-whm/plant-id-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lina-whm/plant-id-portfolio/issues"
   }
 }

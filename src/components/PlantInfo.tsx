@@ -1,50 +1,54 @@
 import React from 'react';
 import { PlantIdentification } from '../types/plant.types';
-import { ExternalLink, CheckCircle } from 'lucide-react';
 
 interface PlantInfoProps {
     plant: PlantIdentification;
 }
 
+interface SimilarImage {
+    id: string;
+    url: string;
+}
+
 const PlantInfo: React.FC<PlantInfoProps> = ({ plant }) => {
+    const plantName = plant.name || plant.plant_name || 'Неизвестное растение';
     const probabilityPercent = (plant.probability * 100).toFixed(1);
+    
+    const similarImages: SimilarImage[] = plant.details?.similar_images || [];
 
     return (
         <div className="plant-card">
             <div className="plant-header">
-                <h3>{plant.plant_name}</h3>
-                <span className={`probability-badge ${plant.probability > 0.7 ? 'high' : 'medium'}`}>
+                <h3>{plantName}</h3>
+                <span className={`probability-badge ${plant.probability > 0.7 ? 'high' : plant.probability > 0.4 ? 'medium' : 'low'}`}>
                     {probabilityPercent}% совпадение
                 </span>
             </div>
 
             <div className="plant-details">
-                <p className="label">Вероятные названия:</p>
+                <p className="label">Точность распознавания:</p>
                 <p className="value">
-                    {plant.plant_details.common_names?.join(', ') || 'Не указано'}
+                    {probabilityPercent}% уверенности
                 </p>
 
-                <p className="label">Описание:</p>
-                <p className="value description">
-                    {plant.plant_details.wiki_description?.value || 'Описание отсутствует.'}
-                </p>
-
-                <div className="plant-links">
-                    <a
-                        href={plant.plant_details.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="link-button"
-                    >
-                        <ExternalLink size={16} />
-                        Подробнее на вики
-                    </a>
-                    {plant.confirmed && (
-                        <div className="confirmed-badge">
-                            <CheckCircle size={16} />
-                            Подтверждено экспертами
+                {similarImages.length > 0 && (
+                    <>
+                        <p className="label">Похожие изображения:</p>
+                        <div className="similar-images">
+                            {similarImages.slice(0, 2).map((img: SimilarImage, index: number) => (
+                                <img 
+                                    key={img.id || index} 
+                                    src={img.url} 
+                                    alt={`Похожее изображение ${index + 1}`}
+                                    className="similar-image"
+                                />
+                            ))}
                         </div>
-                    )}
+                    </>
+                )}
+
+                <div className="api-success-note">
+                    <span>✅ Распознано с помощью Plant.id API</span>
                 </div>
             </div>
         </div>
