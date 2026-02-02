@@ -15,7 +15,7 @@ const App: React.FC = () => {
     const [backendOnline, setBackendOnline] = useState<boolean | null>(null);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-    // проверка backend при загрузке приложения
+    // проверка backend при загрузке
     useEffect(() => {
         const checkBackend = async () => {
             try {
