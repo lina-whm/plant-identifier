@@ -20,7 +20,7 @@
 
 ## Демо
 
-### [Посмотреть демо на GitHub Pages](https://lina-whm.github.io/plant-id-portfolio)
+### [Посмотреть демо на GitHub Pages](https://lina-whm.github.io/plant-identifier/)
 
 #### Режимы работы:
 1. **Режим с API** (backend запущен) - реальное распознавание через Plant.id
@@ -51,58 +51,60 @@
 
 ![Демонстрация работы приложения](/src/screenshots/demo.gif)
 
-##  Быстрый старт
+### Быстрый старт
 
-### Предварительные требования
+# Предварительные требования
 - Node.js 16+
 - npm или yarn
 - API ключ от [Plant.id](https://plant.id)
 
-##  Детальная установка
+#  Детальная установка
 
-### 1. Получение API ключа
+# Получение API ключа
 1. Зарегистрируйтесь на [plant.id](https://plant.id)
 2. Получите API ключ в личном кабинете
 
-### Клонирование репозитория
-
+# Клонирование репозитория
+```sh
 git clone https://github.com/lina-whm/plant-id-portfolio.git
 cd plant-id-portfolio
 
-# Установка всех зависимостей
-npm install
+npm install //Установка всех зависимостей
+```
+# Настройка окружения
 
-# Или по отдельности
-cd server && npm install
-cd .. && npm install
+1. Backend настройка (server/.env)
 
-## Настройка окружения
-1. Backend настройка (server/.env):
-
+```sh
 PLANT_ID_API_KEY=ваш_ключ_plant_id
 PORT=3001
 CORS_ORIGIN=http://localhost:3000
+```
 
-2. Frontend настройка (.env в корне):
+2. Frontend настройка (.env в корне)
+```sh
 REACT_APP_BACKEND_URL=http://localhost:3001
+```
 
-## Запуск проекта
+# Запуск проекта
 1. Способ: одной командой (рекомендуется)
-
-npm run dev
-Запускает оба сервера (frontend на 3000, backend на 3001)
-
+```sh
+npm run dev //Запускает оба сервера (frontend на 3000, backend на 3001)
+```
 2. Способ:  по отдельности
-
 Терминал 1: Backend
+
+```sh
 cd server
 npm run dev
-
+```
 Терминал 2: Frontend
+```sh
 npm start
-
+```
 3. Способ:  только frontend (демо-режим)
 
+```sh
 npm start
 Работает без backend с демо-данными
-
+```
