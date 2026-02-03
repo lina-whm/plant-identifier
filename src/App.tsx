@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { identifyPlant, checkBackendHealth } from './services/plantIdApi';
 import { PlantIdentification } from './types/plant.types';
 import { extractPlantsFromResponse } from './utils/apiHelpers';
@@ -34,7 +34,7 @@ const App: React.FC = () => {
         checkBackend();
     }, []);
 
-  const handleImageUpload = async (file: File) => {
+  const handleImageUpload = useCallback(async (file: File) => {
       if (backendOnline === false) {
         console.log('Backend не запущен, используем демо-режим');
     }
@@ -47,7 +47,7 @@ const App: React.FC = () => {
    try {
         const data = await identifyPlant(file);
         console.log('Полученные данные:', data);
-         setError(null);
+        setError(null);
         const extractedPlants = extractPlantsFromResponse(data);
 
         
@@ -78,9 +78,9 @@ const App: React.FC = () => {
     } finally {
         setIsLoading(false);
     }
-};
+}, [backendOnline]);
 
-    const handleRetryBackend = async () => {
+    const handleRetryBackend = useCallback(async () => {
         setError(null);
         const isOnline = await checkBackendHealth();
         setBackendOnline(isOnline);
@@ -88,7 +88,7 @@ const App: React.FC = () => {
         if (isOnline && selectedImage) {
             handleImageUpload(selectedImage);
         }
-    };
+    }, [selectedImage, handleImageUpload]);
 
     return (
         <div className="app">

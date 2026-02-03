@@ -1,40 +1,66 @@
 import { PlantIdentification } from '../types/plant.types';
 
 export const extractPlantsFromResponse = (data: any): PlantIdentification[] => {
-    console.log('Extracting plants from:', data);
+    console.log(' ПРОСТОЙ извлечение растений');
     
-    let plants: any[] = [];
+    let suggestions = [];
     
-    const possiblePaths = [
-        data?.data?.suggestions,
-        data?.suggestions,
-        data?.result?.classification?.suggestions,
-        data?.data?.result?.classification?.suggestions,
-    ];
-    
-    for (const path of possiblePaths) {
-        if (Array.isArray(path)) {
-            plants = path;
-            break;
-        }
+    if (data?.data?.suggestions) {
+        suggestions = data.data.suggestions;
+        console.log('Нашли в data.data.suggestions');
+    } else if (data?.suggestions) {
+        suggestions = data.suggestions;
+        console.log('Нашли в data.suggestions');
+    } else if (data?.data && Array.isArray(data.data)) {
+        suggestions = data.data;
+        console.log('Data является массивом');
     }
     
-    return plants.slice(0, 3).map((plant: any) => {
-        const similarImages = (plant as any).similar_images || plant.details?.similar_images;
+    console.log(`🌿 Найдено растений: ${suggestions.length}`);
+    
+    if (suggestions.length === 0) {
+        console.log(' Растений не найдено');
+        return [];
+    }
+    
+    return suggestions.slice(0, 3).map((plant: any, index: number) => {
+        console.log(`🌱 Растение ${index}:`, plant);
+        
+        const plantName = plant.plant_name || plant.name || 'Растение';
+        const probability = plant.probability || 0;
+        const probabilityPercent = Math.round(probability * 100);
+        
+        // простой перевод популярных растений
+        const plantTranslations: Record<string, string> = {
+            'Leucanthemum vulgare': 'Ромашка луговая',
+            'Leucanthemum maximum': 'Нивяник наибольший',
+            'Syringa vulgaris': 'Сирень',
+            'Rosa': 'Роза',
+            'Monstera deliciosa': 'Монстера',
+            'Sansevieria trifasciata': 'Сансевиерия',
+            'Tulipa': 'Тюльпан',
+            'Orchidaceae': 'Орхидея',
+            'Cactaceae': 'Кактус'
+        };
+        
+        const russianName = plantTranslations[plantName] || plantName;
+        
+        console.log(`Название: ${russianName} (${probabilityPercent}%)`);
         
         return {
-            id: plant.id || `plant-${Date.now()}-${Math.random()}`,
-            name: plant.name || plant.plant_name || 'Неизвестное растение',
-            plant_name: plant.plant_name,
-            probability: plant.probability || 0,
-            confirmed: plant.confirmed,
+            id: plant.id || `plant-${index}`,
+            name: russianName,
+            probability: probability,
+            probabilityPercent: probabilityPercent,
+            confirmed: plant.confirmed || false,
+            isMock: data.isMock || false,
             details: {
-                similar_images: similarImages
+                common_names: [russianName],
+                url: `https://ru.wikipedia.org/wiki/${encodeURIComponent(plantName)}`,
+                description: `Распознано с точностью ${probabilityPercent}%`,
+                similar_images: [],
+                latin_name: plantName
             }
-        } as PlantIdentification;
+        };
     });
-};
-
-export const isPlantImage = (data: any): boolean => {
-    return !!(data?.suggestions || data?.result?.classification?.suggestions);
 };
